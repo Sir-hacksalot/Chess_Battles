@@ -137,6 +137,7 @@ public class Clock {
         
         switch (m1){ //paint the 10's digit of the minutes remaining
             case 0:
+            case 6:
                 digit0.paintIcon(p, g, 175, 0);
                 break;
             case 1:
@@ -153,9 +154,6 @@ public class Clock {
                 break;
             case 5:
                 digit5.paintIcon(p, g, 175, 0);
-                break;
-            case 6:
-                digit6.paintIcon(p, g, 175, 0);
                 break;
             default:
                 digit0.paintIcon(p, g, 175, 0);
