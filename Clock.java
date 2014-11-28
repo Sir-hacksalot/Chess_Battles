@@ -14,12 +14,12 @@ import java.awt.event.*;
  */
 public class Clock {
     
-    private int s = 60; //this is used to keep track of how many seconds
+    private int s = 0; //this is used to keep track of how many seconds
                         //have passed. Counts down to 0, then resets.
     private int second = 1000;
     private int min = 60 * second;
     private int time = 0;
-    private int p; //the player number i.e. 1 or 2
+    private int p1; //the player number i.e. 1 or 2
     
     private ImageIcon digit0 = new ImageIcon("digit_0.jpg");
     private ImageIcon digit1 = new ImageIcon("digit_1.jpg");
@@ -37,14 +37,15 @@ public class Clock {
         @Override
         public void actionPerformed(ActionEvent e){
             time-=second; //timer ticks every second
-            if (p == 1){
-                displayTime(ChessProgram.g1, ChessProgram.p1TimePanel);
-            }
-            else{
-                displayTime(ChessProgram.g2, ChessProgram.p2TimePanel);
-            }
             
             checkSeconds();
+            
+            if (p1 == 1){
+                displayTime(ChessProgram.p1TimePanel);
+            }
+            else{
+                displayTime(ChessProgram.p2TimePanel);
+            }
         }
     };
     private Timer timer = new Timer (second, tick);
@@ -52,7 +53,14 @@ public class Clock {
     //constructor
     public Clock(int minutes, int player){
         time = minutes * min; //converts to milliseconds
-        p = player;
+        p1 = player;
+        //displays the unchanged time before the game starts
+        if(p1==1){
+            displayTime(ChessProgram.p1TimePanel);
+        }
+        else{
+            displayTime(ChessProgram.p2TimePanel);
+        }
     }
     //starts the timer
     public void startClock(){
@@ -63,7 +71,15 @@ public class Clock {
         timer.stop();
     }
     
-    public void displayTime(Graphics g, JPanel p){
+    public void displayTime(JPanel p){
+        
+        Graphics g;
+        if(p1==1){
+            g = ChessProgram.p1TimePanel.getGraphics();
+        }
+        else{
+            g = ChessProgram.p2TimePanel.getGraphics();
+        }
         g.setColor(Color.white); //resets the panel to a blank white screen
         g.fillRect(0,0,500,100); //so the numbers can go on fresh
         
@@ -247,7 +263,7 @@ public class Clock {
     //by one.
     public void checkSeconds(){
         if(s == 0){
-            s = 60;
+            s = 59;
         } else { s--; }
     }
 }

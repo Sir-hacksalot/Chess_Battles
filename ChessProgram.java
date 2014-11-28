@@ -16,8 +16,8 @@ public class ChessProgram extends JFrame implements ActionListener{
     protected static JPanel p1TimePanel = new JPanel();
     protected static JPanel p2TimePanel  = new JPanel();
     
-    protected static Graphics g1 = p1TimePanel.getGraphics();
-    protected static Graphics g2 = p2TimePanel.getGraphics();
+    protected Graphics g1 = p1TimePanel.getGraphics();
+    protected Graphics g2 = p2TimePanel.getGraphics();
     
     private JTextField winner;
     private JTextField playerTurn;
@@ -41,11 +41,11 @@ public class ChessProgram extends JFrame implements ActionListener{
         Container window = getContentPane();
         window.setLayout(new FlowLayout());
         
-        p1TimePanel.setSize(new Dimension(500,100));
+        p1TimePanel.setPreferredSize(new Dimension(500,100));
         p1TimePanel.setBackground(Color.white);
         window.add(p1TimePanel);
         
-        p2TimePanel.setSize(new Dimension(500,100));
+        p2TimePanel.setPreferredSize(new Dimension(500,100));
         p2TimePanel.setBackground(Color.white);
         window.add(p2TimePanel);
         
@@ -54,15 +54,13 @@ public class ChessProgram extends JFrame implements ActionListener{
         window.add(button);
         
         button2 = new JButton ("stop");
-        button.addActionListener(this);
+        button2.addActionListener(this);
         window.add(button2);
         
         int time = Integer.parseInt(JOptionPane.showInputDialog("Enter the "
                 + "amount of time each player will have (in min):"));
         clock1 = new Clock(time, 1);
         clock2 = new Clock(time, 2);
-        clock1.displayTime(g1, p1TimePanel);
-        clock2.displayTime(g2, p2TimePanel);
     }
     @Override
     public void actionPerformed(ActionEvent e){
